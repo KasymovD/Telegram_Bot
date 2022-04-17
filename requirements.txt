@@ -1,0 +1,9 @@
+aiogram
+uvloop
+beautifulsoup4
+requests
+ujson
+cchardet
+aiodns
+aiohttp
+lxml

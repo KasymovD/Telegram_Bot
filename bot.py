@@ -1,0 +1,131 @@
+import logging
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from config import TOKEN
+from main import unique_list_update
+
+inline_btn_1 = InlineKeyboardButton('Специальности', callback_data='button1')
+inline_btn_2 = InlineKeyboardButton('Контакты', callback_data='button2')
+inline_btn_3 = InlineKeyboardButton('Новости МУИТ', callback_data='button3')
+inline_btn_4 = InlineKeyboardButton('Наш Сайт', callback_data='button4', url='https://intuit.kg/faculty/idat')
+
+inline_kb1 = InlineKeyboardMarkup(row_width=2).add(inline_btn_1, inline_btn_2, inline_btn_3, inline_btn_4)
+
+inline_btn_next_1 = InlineKeyboardButton('1️⃣ Дизайн архитектурной среды (ДАС)', callback_data='button_next_1')
+inline_btn_next_2 = InlineKeyboardButton('2️⃣ Конструирование швейных изделий (КШИ)', callback_data='button_next_2')
+inline_btn_next_3 = InlineKeyboardButton('3️⃣ Дизайн интерьера (ДИЗ)', callback_data='button_next_3')
+inline_btn_next_4 = InlineKeyboardButton('4️⃣ Дизайн одежды (ДОД)', callback_data='button_next_4')
+
+btn_send_delete_2 = InlineKeyboardButton('<< Назад', callback_data='new_message_delete')
+btn_send_markup_2 = InlineKeyboardMarkup().add(btn_send_delete_2)
+
+inline_kb2 = InlineKeyboardMarkup(row_width=1).add(inline_btn_next_1, inline_btn_next_2, inline_btn_next_3, inline_btn_next_4, btn_send_delete_2)
+
+logging.basicConfig(level=logging.INFO)
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+
+list_1 = unique_list_update
+list_1_str = "".join(list_1)
+
+
+@dp.message_handler(commands=['start'], state='*')
+async def process_command_1(message: types.Message):
+    await message.reply(f"Здравствуйте {message.from_user.first_name}! "
+                        "Я — IdatBot, ваш виртуальный помощник для абитурентов в InTUIT.IDAT", reply_markup=inline_kb1)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button1')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.from_user.id, 'Специальности InTUIT.IDAT 👨‍🎓👩‍🎓', reply_markup=inline_kb2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button2')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.from_user.id, 'WhatsApp: +996701232309\n'
+                                                        'Tel: +996312449903\n'
+                                                        'Web: https://intuit.kg/faculty/idat\n'
+                                                        'Instagram: https://www.instagram.com/intuit.kg/\n'
+                                                        'Адрес: 720048, г. Бишкек, ул. Анкара (Горького), 1/17\n'
+                                                        'https://www.google.com/maps/@42.8593913,74.6676174,87m/data=!3m1!1e3', reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button3')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await callback_query.answer('Сбор данных сайта https://intuit.kg')
+    await bot.send_message(callback_query.from_user.id, list_1_str, reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_next_1')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.from_user.id, 'Дизайн архитектурной среды (ДАС)\n'
+                                                        '\n'
+                                                        'Стоимость обучения = 37 000 сом\n'
+                                                         '\n'
+                                                        'Срок обучения = 5 лет\n'
+                                                        '\n'
+                                                        'Форма обучения = очно\n'
+                                                        '\n'
+                                                        'Проходной балл = от 105 и выше\n'
+                                                        '\n'
+                                                        'http://d.zaix.ru/tgyb.pdf', reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_next_2')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.from_user.id, 'Конструирование швейных изделий (КШИ)\n'
+                                                        '\n'
+                                                        'Стоимость обучения = 35 000 сом\n'
+                                                         '\n'
+                                                        'Срок обучения = 4 года\n'
+                                                        '\n'
+                                                        'Форма обучения = очно\n'
+                                                        '\n'
+                                                        'Проходной балл = от 105 и выше\n'
+                                                        '\n'
+                                                        'http://d.zaix.ru/tgyn.pdf', reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_next_3')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, 'Дизайн интерьера (ДИЗ)\n'
+                                                        '\n'
+                                                        'Стоимость обучения = 36 000 сом\n'
+                                                         '\n'
+                                                        'Срок обучения = 4 года\n'
+                                                        '\n'
+                                                        'Форма обучения = очно\n'
+                                                        '\n'
+                                                        'Проходной балл = с и без ОРТ\n'
+                                                        '\n'
+                                                        'http://d.zaix.ru/tgyi.pdf', reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_next_4')
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.send_message(callback_query.from_user.id, 'Дизайн одежды (ДОД)\n'
+                                                        '\n'
+                                                        'Стоимость обучения = 36 000 сом\n'
+                                                         '\n'
+                                                        'Срок обучения = 4 года\n'
+                                                        '\n'
+                                                        'Форма обучения = очно\n'
+                                                        '\n'
+                                                        'Проходной балл = с и без ОРТ\n'
+                                                        '\n'
+                                                        'http://d.zaix.ru/tgyk.pdf', reply_markup=btn_send_markup_2)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'new_message_delete')
+async def send_msg_to_user(callback_query: types.CallbackQuery):
+    await bot.delete_message(callback_query.message.chat.id, callback_query.message.message_id)
+
+
+def main():
+    executor.start_polling(dp, skip_updates=True)
+
+
+if __name__ == '__main__':
+    main()
