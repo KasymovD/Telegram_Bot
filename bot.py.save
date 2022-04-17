@@ -33,7 +33,7 @@ list_1_str = "".join(list_1)
 @dp.message_handler(commands=['start'], state='*')
 async def process_command_1(message: types.Message):
     await message.reply(f"Здравствуйте {message.from_user.first_name}! "
-                        "Я — IdatBot, ваш виртуальный помощник для абитуриентов в InTUIT.IDAT", reply_markup=inline_kb1)
+                        "Я — IdatBot, ваш виртуальный помощник для  в InTUIT.IDAT", reply_markup=inline_kb1)
 
 
 @dp.callback_query_handler(lambda c: c.data == 'button1')
