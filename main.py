@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from random import choice
+import lxml
 
 user_agents = [
                 'Mozilla/5.0 (Linux; U; Android 6.0; en-US; Nomi_i4510 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/12.2.1.1108 Mobile Safari/537.36',
@@ -53,5 +54,4 @@ def news(url_news):
     for topic3 in unique_list[2::5]:
         unique_list_update.append(topic3)
 
-
-news(url_news="https://intuit.kg/news/0")
+news(url_news="https://intuit.kg/news/")
