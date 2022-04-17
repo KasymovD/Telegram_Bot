@@ -43,8 +43,7 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'button2')
 async def process_callback_button1(callback_query: types.CallbackQuery):
-    await bot.send_message(callback_query.from_user.id, 'WhatsApp: +996701232309\n'
-                                                        'Tel: +996312449903\n'
+    await bot.send_message(callback_query.from_user.id, 'Tel: +996706884096\n'
                                                         'Web: https://intuit.kg/faculty/idat\n'
                                                         'Instagram: https://www.instagram.com/intuit.kg/\n'
                                                         'Адрес: 720048, г. Бишкек, ул. Анкара (Горького), 1/17\n'
