@@ -34,6 +34,7 @@ list_1_str = "".join(list_1)
 async def process_command_1(message: types.Message):
     await message.reply(f"Здравствуйте {message.from_user.first_name}! "
                         "Я — IdatBot, ваш виртуальный помощник для абитуриентов в InTUIT.IDAT", reply_markup=inline_kb1)
+    await bot.delete_message(message.chat.id)
 
 
 @dp.callback_query_handler(lambda c: c.data == 'button1')
@@ -121,6 +122,9 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
 async def send_msg_to_user(callback_query: types.CallbackQuery):
     await bot.delete_message(callback_query.message.chat.id, callback_query.message.message_id)
 
+@dp.message_handler()
+async def message_handler6(message: types.Message):
+    await bot.delete_message(message.from_user.id, message.message_id)
 
 def main():
     executor.start_polling(dp, skip_updates=True)
